@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;margin-top:0;
+		}
+		ul{
+			list-style: none;
+		}
+		#box{
+			width: 480px;
+			height: 640px;
+			margin: 0px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#l,#r{
+			width: 40px;
+			height: 40px;
+			text-align: center;
+			line-height: 36px;
+			background: rgba(198,198,198,.4);
+			font-size: 32px;
+			font-weight: bolder;
+			color: #fff;
+			position: absolute;
+			top: 120px;
+			cursor: pointer;
+			display: none;
+			z-index: 999;
+		}
+		#l:hover,#r:hover{
+			background: rgba(38,38,38,.2);
+		}
+		#l{
+			border-top-right-radius: 50%;
+			border-bottom-right-radius: 50%;
+			left: -8px;
+		}
+		#r{
+			border-top-left-radius: 50%;
+			border-bottom-left-radius: 50%;
+			right: -8px;
+		}
+		#imgs{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#imgs ul{
+			width: 2600px;
+			height: 280px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#imgs ul li{
+			float: left;
+			width: 480px;
+			height: 640px;
+		}
+		#txts{
+			width: 80px;
+			height: 20px;
+			position: absolute;
+			left: 215px;
+			bottom: 20px;
+			padding: 0px 5px;
+			z-index: 999;
+			background: rgba(38,38,38,.4);
+			border-radius: 15px;
+		}
+		#txts a{
+			width: 10px;
+			height: 10px;
+			float: left;
+			margin: 5px;
+			background: rgba(255,255,255,.6);
+			border-radius: 50%;
+		}
+		#txts a:hover,#txts a.active{
+			background: #ff5000;
+		}
+
+	</style>
+	<script src="js/jquery.js"></script>
+</head>
+<body style="width: 100%;height:100%;background: linear-gradient(red,yellow, green, blue) no-repeat;overflow: hidden;">
+	<div>
+		
+		<div id="box">
+			<div id="l"> < </div>
+			<div id="r"> > </div>
+			<div id="imgs">
+				<ul>
+					<li><img src="imgs/1.jpg" alt=""></li>
+					<li><img src="imgs/2.jpg" alt=""></li>
+					<li><img src="imgs/3.jpg" alt=""></li>
+					<li><img src="imgs/4.jpg" alt=""></li>
+					<li><img src="imgs/1.jpg" alt=""></li>
+				</ul>
+			</div>
+			<div id="txts">
+				<a href="javascript:void(0)" class="active" data-index="0"></a>
+				<a href="javascript:void(0)" data-index="1"></a>
+				<a href="javascript:void(0)" data-index="2"></a>
+				<a href="javascript:void(0)" data-index="3"></a>
+			</div>
+		</div>
+		<div style="position: absolute;top:0;">
+			<h2 style="color: blue;margin-top: 20px;" class="aa1"></h2>
+			<h2 style="color: blue;margin-top: 20px;" class="aa2"></h2>
+			<h2 style="color: blue;margin-top: 20px;" class="aa3"></h2>
+			<h2 style="color: blue;margin-top: 20px;" class="aa4"></h2>
+			<h2 style="color: blue;margin-top: 20px;" class="aa5"></h2>
+			<h2 style="color: blue;margin-top: 20px;" class="aa6"></h2>
+		</div>
+		
+	</div>
+</body>
+<script>
+	setTimeout(function(){
+		$('.aa1').text('小帅:')
+	},1000)
+	setTimeout(function(){
+		$('.aa2').text('生日快乐')
+	},3000)
+	setTimeout(function(){
+		$('.aa3').text('很遗憾没有和你在一起过生日')
+	},5000)
+	setTimeout(function(){
+		$('.aa4').text('祝你每一天开心，健康')
+	},7000)
+	setTimeout(function(){
+		$('.aa1').text('送你祝福的话，总是说也说不完!')
+	},9000)
+	setTimeout(function(){
+		$('.aa2').text('关怀的心，总是用也用不尽!')
+	},11000)
+	setTimeout(function(){
+		$('.aa3').text('朋友，在这个特别的日子里')
+	},13000)
+	setTimeout(function(){
+		$('.aa4').text('送上我最衷心的祝福和关怀!朋友，生日快乐!')
+	},15000)
+	setTimeout(function(){
+		$('.aa5').text('祝你梦想成真,下面送你一场流星雨!')
+	},17000)
+	setTimeout(function(){
+		$('.aa6').text('每天开心!')
+	},19000)
+	setTimeout(function(){
+		$('.aa5').text('最漂亮的小姐姐!')
+	},21000)
+	setTimeout(function(){
+		$('.aa6').text('就是你!')
+	},23000)
+	setTimeout(function(){
+		window.location.href='./aaa.html'
+	},28000)
+</script>
+<script>
+		// 实现自动轮播
+		var id = null;
+		// 当前显示图片的下标
+		var currentIndex = 0;
+		var ul = imgs.firstElementChild;
+		var lis = ul.children;
+		var li_w = lis[0].offsetWidth;
+		var sa = txts.children;
+
+		id = setInterval(function(){
+			currentIndex++;
+			if(currentIndex > lis.length - 1){
+				currentIndex = 1;
+				ul.style.left = 0;
+			}
+			changeFocus(currentIndex);
+			animate(ul,"left",-currentIndex*li_w + "px");
+		},2000);
+
+		box.onmouseover = function(){
+			l.style.display = r.style.display = "block";
+			clearInterval(id);
+		}
+		box.onmouseout = function(){
+			l.style.display = r.style.display = "none";
+			id = setInterval(function(){
+				currentIndex++;
+				if(currentIndex > lis.length - 1){
+					currentIndex = 1;
+					ul.style.left = 0;
+				}
+				changeFocus(currentIndex);
+				animate(ul,"left",-currentIndex*li_w + "px");
+			},2000);
+		}
+		box.onclick = function(evt){
+			var e = evt || window.event;
+			var t = e.target || e.srcElment;
+			switch(true){
+				case t.id == "l":
+					currentIndex--;
+					if(currentIndex < 0){
+						currentIndex = lis.length - 2;
+						ul.style.left = -(lis.length - 1)*li_w + "px";
+					}
+					changeFocus(currentIndex);
+					animate(ul,"left",-currentIndex*li_w + "px");
+				break;
+				case t.id == "r":
+					currentIndex++;
+					if(currentIndex > lis.length - 1){
+						currentIndex = 1;
+						ul.style.left = 0;
+					}
+					changeFocus(currentIndex);
+					animate(ul,"left",-currentIndex*li_w + "px");
+				break;
+				case t.tagName == "A":
+					currentIndex = t.getAttribute("data-index");
+					changeFocus(currentIndex);
+					animate(ul,"left",-currentIndex*li_w + "px");
+				break;
+			}
+		}
+
+		function changeFocus(index){
+			if(index == 4) index = 0;
+			for(var i=0;i<sa.length;i++){
+				sa[i].className = i == index ? "active" : "";
+			}
+		}
+
+		function animate(ele,attr,end){
+			// 如果定时器存在，先清除
+			if(ele.timer) clearInterval(ele.timer);
+			// 如果单属性运动运动的是透明度，把透明度的结束值放大倍。
+			end = attr == "opacity" ? parseFloat(end)*100 : parseFloat(end);
+			// 运动定时器：把运动定时器绑定到元素上，实现多物体运动
+			ele.timer = setInterval(function(){
+				// 运动值：每一次间歇调用执行时，获取当前物体的运动属性值
+				var moveVal = getStyle(ele,attr);
+				// 如果是透明度，把运动值放大100倍
+				if(attr == "opacity"){
+					moveVal = moveVal*100;
+				}
+				// 缓冲运动的速度计算
+				var speed = (end - moveVal)/10;
+				speed = end > moveVal ? Math.ceil(speed) : Math.floor(speed);
+				// 运动结束，清除定时器
+				if(moveVal == end){
+					clearInterval(ele.timer);
+				}
+				// 把每一次间歇调用执行的结果写入当前物体的样式里去
+				var res = moveVal + speed;
+				ele.style[attr] = attr == "opacity" ? res/100 : res + "px";
+			},10);
+		}
+
+
+		// 封装获取样式最终值
+		function getStyle(ele,attr){
+			return parseFloat(ele.currentStyle ? ele.currentStyle[attr] : window.getComputedStyle(ele,null)[attr]);
+		}
+	</script>
+</html>
